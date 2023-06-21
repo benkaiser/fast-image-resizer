@@ -83,6 +83,32 @@ const Resize = ({ onChange, currentSize, hideResetButton, alignLeft }) => {
     }
   };
 
+  React.useEffect(() => {
+    if (!resize.maxHeight && !resize.maxWidth) {
+      return;
+    }
+    if (resize.maxHeight === null) {
+      changeResize({ target: { name: 'width', value: resize.maxWidth } });
+      return;
+    }
+    if (resize.maxWidth === null) {
+      changeResize({ target: { name: 'height', value: resize.maxHeight } });
+      return;
+    }
+    // calculate if resize.maxWidth or resize.maxHeight will be the contstraining dimension, factoring in originalImage dimensions
+    const originalWidth = originalImage.width;
+    const originalHeight = originalImage.height;
+    const { maxWidth, maxHeight } = resize;
+    const maxWidthPercentage = maxWidth / originalWidth;
+    const maxHeightPercentage = maxHeight / originalHeight;
+    const maxWidthIsContstraining = maxWidthPercentage < maxHeightPercentage;
+    if (maxWidthIsContstraining) {
+      changeResize({ target: { name: 'width', value: maxWidth } });
+    } else {
+      changeResize({ target: { name: 'height', value: maxHeight } });
+    }
+  }, [originalImage, resize.maxWidth, resize.maxHeight]);
+
   const toggleRatioLock = () => {
     if (typeof onChange === 'function') {
       onChange({ ratioUnlocked: !currentSize.ratioUnlocked });

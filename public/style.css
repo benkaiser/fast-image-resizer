@@ -1141,6 +1141,26 @@ body {
   background-color: #35918a !important;
 }
 
+.drop-indicator {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  opacity: 0.9;
+  z-index: 10000;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hidden {
+  display: none;
+}
+
 @media (min-width: 1980px) {
   .content-wrapper .header {
     margin: auto;

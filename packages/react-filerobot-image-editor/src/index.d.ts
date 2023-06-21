@@ -283,6 +283,11 @@ export interface FilerobotImageEditorConfig {
     presetsFolders?: cropPresetFolder[];
     autoResize?: boolean;
   };
+  // TOOL_IDS.RESIZE]
+  Resize?: {
+    maxWidth?: number;
+    maxHeight?: number;
+  };
   // TABS_IDS
   tabsIds?: availableTabs[] | [];
   defaultTabId?: availableTabs;

@@ -47,7 +47,7 @@
         </div>
       </header>
 
-      <div class="content">
+      <div class="content" id="content">
         <div>
           <h1 class="content-title">
             Fast Image Resize
@@ -72,100 +72,7 @@
                 id="add-image"
               />
             </div>
-            <h5>Tabs</h5>
-            <div class="tools-checkboxs">
-              <div class="tabs-left-column">
-                <div class="checkbox-wrapper">
-                  <label class="checkbox-container" for="crop">
-                    Adjust
-                    <input
-                      id="crop"
-                      value="adjust"
-                      type="checkbox"
-                      name="Crop"
-                      checked />
-                    <span class="checkmark"></span></label
-                  ><br />
-                </div>
-                <div>
-                  <label class="checkbox-container" for="finetune">
-                    Finetune
-                    <input
-                      id="finetune"
-                      value="finetune"
-                      type="checkbox"
-                      name="Finetune"
-                      checked />
-                    <span class="checkmark"></span></label
-                  ><br />
-                </div>
-                <div id="filter-wrapper">
-                  <label
-                    id="filter-label"
-                    class="checkbox-container"
-                    for="filter"
-                  >
-                    Filters
-                    <input
-                      id="filter"
-                      value="filter"
-                      type="checkbox"
-                      name="Filters"
-                      checked />
-                    <span class="checkmark"></span></label
-                  ><br />
-                </div>
-              </div>
-              <div class="tabs-right-column">
-                <div>
-                  <label class="checkbox-container" for="watermark">
-                    Watermark
-                    <input
-                      id="watermark"
-                      value="watermark"
-                      type="checkbox"
-                      name="Watermark"
-                      checked />
-                    <span class="checkmark"></span></label
-                  ><br />
-                </div>
-                <div id="annotate-wrapper">
-                  <label
-                    id="annotate-label"
-                    class="checkbox-container"
-                    for="annotate"
-                  >
-                    Draw
-                    <input
-                      id="annotate"
-                      value="annotate"
-                      type="checkbox"
-                      name="Annotate"
-                      checked />
-                    <span class="checkmark"></span></label
-                  ><br />
-                </div>
-                <div>
-                  <label class="checkbox-container" for="resize">
-                    Resize
-                    <input
-                      id="resize"
-                      value="resize"
-                      type="checkbox"
-                      name="Resize"
-                      checked />
-                    <span class="checkmark"></span></label
-                  ><br />
-                </div>
-              </div>
-            </div>
-            <div class="mode-content">
-              <h4>Mode</h4>
-              <select id="mode-options">
-                <option class="mode-options" value="Download">Download</option>
-                <option value="Cloudimage">CloudImage</option>
-              </select>
-            </div>
+            <h5>Options</h5>
           </div>
           <div class="editor-container" id="editor_container">
             <div class="plugin-spinner"></div>
@@ -175,6 +82,7 @@
         <div class="cyan-blur-ellipse"></div>
       </div>
     </section>
+    <div id="drop-indicator" class="drop-indicator hidden"><div>Drop Image</div></div>
 
     <script type="module" src="./public/init.js"></script>
   </body>

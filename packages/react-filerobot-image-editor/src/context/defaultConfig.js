@@ -83,6 +83,10 @@ export default {
     presetsItems: [],
     presetsFolders: [],
   },
+  [TOOLS_IDS.RESIZE]: {
+    maxWidth: null,
+    maxHeight: null,
+  },
   [TOOLS_IDS.ROTATE]: {
     angle: 60,
     componentType: 'slider', // slider | buttons

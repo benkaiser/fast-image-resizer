@@ -11,6 +11,7 @@ import {
   HIDE_LOADER,
   SET_FEEDBACK,
   SET_ORIGINAL_IMAGE,
+  SET_RESIZE,
   SHOW_LOADER,
   UPDATE_STATE,
 } from 'actions';
@@ -299,6 +300,15 @@ const App = () => {
   useEffect(() => {
     haveNotSavedChangesRef.current = haveNotSavedChanges;
   }, [haveNotSavedChanges]);
+
+  useEffect(() => {
+    if (config.Resize) {
+      dispatch({
+        type: SET_RESIZE,
+        payload: config.Resize,
+      });
+    }
+  }, [source]);
 
   return (
     <StyledAppWrapper

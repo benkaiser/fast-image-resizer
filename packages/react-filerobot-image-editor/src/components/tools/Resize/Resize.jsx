@@ -19,7 +19,13 @@ import {
   StyledXLabel,
 } from './Resize.styled';
 
-const Resize = ({ onChange, currentSize, hideResetButton, alignLeft }) => {
+const Resize = ({
+  onChange,
+  currentSize,
+  hideResetButton,
+  alignLeft,
+  doNotAutoAdjust,
+}) => {
   const {
     dispatch,
     originalImage,
@@ -53,13 +59,6 @@ const Resize = ({ onChange, currentSize, hideResetButton, alignLeft }) => {
         : Math.round(newResize[name] / originalImgRatio);
     }
 
-    if (
-      newResize[name] === resize[name] &&
-      newResize[secondDimensionName] === resize[secondDimensionName]
-    ) {
-      return;
-    }
-
     if (typeof onChange === 'function') {
       onChange(newResize);
       return;
@@ -84,6 +83,9 @@ const Resize = ({ onChange, currentSize, hideResetButton, alignLeft }) => {
   };
 
   React.useEffect(() => {
+    if (doNotAutoAdjust) {
+      return;
+    }
     if (!resize.maxHeight && !resize.maxWidth) {
       return;
     }

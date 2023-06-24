@@ -270,7 +270,7 @@ body {
   font-weight: 400;
 }
 
-.content-wrapper .img-table .config-table input {
+.content-wrapper .img-table .config-table .img-container input {
   width: 15px;
   height: 15px;
   border: 1px solid #dfe1ec;
@@ -451,7 +451,7 @@ body {
   margin-bottom: 8px;
 }
 
-.content-wrapper .img-table .mode-content select {
+.content-wrapper .img-table .mode-content select, .content-wrapper .tools-checkboxs input {
   border: 1px solid #dfe1ec;
   height: 40px;
   padding: 8px 14px;
@@ -1157,8 +1157,35 @@ body {
   pointer-events: none;
 }
 
-.hidden {
+.hidden, .customSizeWrapper.hidden {
   display: none;
+}
+
+.tabs-left-column {
+  margin-bottom: 10px;
+}
+
+
+.content-wrapper .tools-checkboxs select {
+  border: 1px solid #dfe1ec;
+  height: 40px;
+  padding: 8px 14px;
+  font-size: 14px;
+  line-height: 24px;
+  color: #203254;
+  width: 231.45px;
+  -webkit-appearance: none;
+  background-image: url("./assets/arrow-icon.png");
+  background-repeat: no-repeat;
+  background-position-x: 97%;
+  background-position-y: calc(20px - (8px / 2));
+}
+
+.customSizeWrapper {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 @media (min-width: 1980px) {

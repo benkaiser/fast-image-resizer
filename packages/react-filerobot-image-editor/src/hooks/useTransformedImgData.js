@@ -180,7 +180,10 @@ const useTransformedImgData = () => {
       ...(isQualityAcceptable ? { quality } : {}),
     };
     const finalCanvas = preparedCanvas.toCanvas(finalOptions);
-    const finalImgBase64 = preparedCanvas.toDataURL(finalOptions);
+    const finalImgBase64 = preparedCanvas.toDataURL(
+      finalOptions,
+      quality / 100,
+    );
     const finalImgDesignState = {
       ...extractCurrentDesignState(state),
       shownImageDimensions: {

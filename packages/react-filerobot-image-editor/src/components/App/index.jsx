@@ -308,7 +308,7 @@ const App = () => {
         payload: config.Resize,
       });
     }
-  }, [source]);
+  }, [source, config.Resize]);
 
   return (
     <StyledAppWrapper

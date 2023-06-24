@@ -321,6 +321,7 @@ const SaveButton = () => {
             <Resize
               onChange={resizeImageFile}
               currentSize={imageFileInfo?.size || {}}
+              doNotAutoAdjust
               hideResetButton
               alignLeft
             />

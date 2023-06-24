@@ -72,7 +72,30 @@
                 id="add-image"
               />
             </div>
-            <h5>Options</h5>
+            <h5>Auto-Size Options</h5>
+            <div class="tools-checkboxs">
+              <select
+                id="size"
+                value="none"
+                type="select"
+                name="size"
+                ></select>
+              <div class="customSizeWrapper hidden">
+                Custom Size Dimensions
+                <input
+                  id="customWidth"
+                  type="number"
+                  name="customWidth"
+                  min="1"
+                  value="1920">
+                <input
+                  id="customHeight"
+                  type="number"
+                  name="customHeight"
+                  min="1"
+                  value="1080">
+              </div>
+            </div>
           </div>
           <div class="editor-container" id="editor_container">
             <div class="plugin-spinner"></div>

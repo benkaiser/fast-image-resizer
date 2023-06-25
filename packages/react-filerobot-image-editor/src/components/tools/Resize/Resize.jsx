@@ -86,28 +86,38 @@ const Resize = ({
     if (doNotAutoAdjust) {
       return;
     }
+    if (resize.maxWidth === Infinity && resize.maxHeight === Infinity) {
+      changeResize({ target: { name: 'width', value: originalImage.width } });
+    }
     if (!resize.maxHeight && !resize.maxWidth) {
       return;
     }
     if (resize.maxHeight === null) {
+      if (resize.maxWidth > originalImage.width) {
+        return;
+      }
       changeResize({ target: { name: 'width', value: resize.maxWidth } });
       return;
     }
     if (resize.maxWidth === null) {
+      if (resize.maxHeight > originalImage.height) {
+        return;
+      }
       changeResize({ target: { name: 'height', value: resize.maxHeight } });
       return;
     }
+    const maxMaxWidth = Math.min(resize.maxWidth, originalImage.width);
+    const maxMaxHeight = Math.min(resize.maxHeight, originalImage.height);
     // calculate if resize.maxWidth or resize.maxHeight will be the contstraining dimension, factoring in originalImage dimensions
     const originalWidth = originalImage.width;
     const originalHeight = originalImage.height;
-    const { maxWidth, maxHeight } = resize;
-    const maxWidthPercentage = maxWidth / originalWidth;
-    const maxHeightPercentage = maxHeight / originalHeight;
+    const maxWidthPercentage = maxMaxWidth / originalWidth;
+    const maxHeightPercentage = maxMaxHeight / originalHeight;
     const maxWidthIsContstraining = maxWidthPercentage < maxHeightPercentage;
     if (maxWidthIsContstraining) {
-      changeResize({ target: { name: 'width', value: maxWidth } });
+      changeResize({ target: { name: 'width', value: maxMaxWidth } });
     } else {
-      changeResize({ target: { name: 'height', value: maxHeight } });
+      changeResize({ target: { name: 'height', value: maxMaxHeight } });
     }
   }, [originalImage, resize.maxWidth, resize.maxHeight]);
 

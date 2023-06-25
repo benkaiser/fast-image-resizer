@@ -270,11 +270,11 @@ body {
   font-weight: 400;
 }
 
-.content-wrapper .img-table .config-table .img-container input {
+/* .content-wrapper .img-table .config-table .img-container input {
   width: 15px;
   height: 15px;
   border: 1px solid #dfe1ec;
-}
+} */
 
 .content-wrapper .img-table .config-table h5 {
   margin-top: 30px;
@@ -1186,6 +1186,15 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.mutedText {
+  font-size: 12px;
+  color: #888;
+}
+
+.mb-2 {
+  margin-bottom: 12px;
 }
 
 @media (min-width: 1980px) {

@@ -15,6 +15,7 @@ const dropIndicator = getElementById('drop-indicator');
 const sizeInput = document.getElementById('size');
 const customWidth = document.getElementById('customWidth');
 const customHeight = document.getElementById('customHeight');
+const customSizeWrapper = document.querySelector('.customSizeWrapper');
 
 const { TABS } = FilerobotImageEditor;
 
@@ -24,7 +25,7 @@ const DEFAULT_IMAGES_SRCS = [
   'https://scaleflex.cloudimg.io/v7/demo/damian-markutt-unsplash.jpg?w=100',
 ];
 const DEFAULT_RESIZES = [
-  { width: 0, height: 0, name: 'none', displayName: 'Original' },
+  { width: Infinity, height: Infinity, name: 'none', displayName: 'Original' },
   { width: 3840, height: 2160, name: '4k', displayName: '4K' },
   { width: 1920, height: 1080, name: '1080p', displayName: 'Full HD' },
   { width: 1280, height: 720, name: '720p', displayName: 'HD' },
@@ -76,7 +77,6 @@ const pluginConfig = {
 
 function onSave(imageInfo) {
   const url = imageInfo.imageBase64;
-  console.log(imageInfo);
   const { fullName: fileName } = imageInfo;
 
   let tmpLink = document.createElement('a');
@@ -199,14 +199,28 @@ function changeSize(event) {
       maxWidth: customWidth.value,
       maxHeight: customHeight.value,
     };
-  }
-  if (selectedSize.name === 'none') {
-    newResizeObject = {};
+    customSizeWrapper.classList.remove('hidden');
+  } else if (customSizeWrapper.classList.contains('hidden') === false) {
+    customSizeWrapper.classList.add('hidden');
   }
   filerobotImageEditor.render({
     Resize: newResizeObject,
   });
 }
+
+let customSizeChangeTimeout;
+function onCustomSizeChangeDebounce() {
+  if (customSizeChangeTimeout) {
+    clearTimeout(customSizeChangeTimeout);
+  }
+  customSizeChangeTimeout = setTimeout(() => {
+    changeSize({ target: { value: 'custom' } });
+  }, 500);
+}
+
+customWidth.addEventListener('keyup', onCustomSizeChangeDebounce);
+
+customHeight.addEventListener('keyup', onCustomSizeChangeDebounce);
 
 document.onreadystatechange = () => {
   DEFAULT_IMAGES_SRCS.forEach((imageSrc, index) => {

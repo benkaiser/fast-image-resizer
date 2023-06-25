@@ -13,6 +13,7 @@ import getZoomFitFactor from 'utils/getZoomFitFactor';
 import toPrecisedFloat from 'utils/toPrecisedFloat';
 import { StyledSmallButton, StyledZoomPercentageLabel } from './Topbar.styled';
 import { ZOOM_FACTORS_PRESETS } from './Topbar.constants';
+import { useEffect } from 'react';
 
 const MULTIPLY_ZOOM_FACTOR = 1.1;
 
@@ -55,6 +56,10 @@ const CanvasZooming = () => {
     );
     saveZoom(fitCanvasFactor || DEFAULT_ZOOM_FACTOR);
   };
+
+  useEffect(() => {
+    fitCanvas();
+  }, [resize.width, resize.height]);
 
   const zoomOut = () => {
     saveZoom(zoom.factor / MULTIPLY_ZOOM_FACTOR);

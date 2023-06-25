@@ -109,7 +109,7 @@ const SaveButton = () => {
   startSavingRef.current = (extensionOverride) => {
     dispatch({ type: SHOW_LOADER });
     setIsModalOpened(false);
-    setTimeout(handleSave.bind(this, extensionOverride), 0);
+    setTimeout(handleSave.bind(undefined, extensionOverride), 0);
   };
 
   const validateInfoThenSave = () => {
@@ -248,7 +248,7 @@ const SaveButton = () => {
           (saveCallback, extensionOverride) =>
             changeSaveFnAndTriggerAnother(
               saveCallback,
-              startSavingRef.current.bind(this, extensionOverride),
+              startSavingRef.current.bind(undefined, extensionOverride),
             ),
         );
     }, 1000);
@@ -271,7 +271,7 @@ const SaveButton = () => {
                     (saveCallback, extensionOverride) =>
                       changeSaveFnAndTriggerAnother(
                         saveCallback,
-                        startSavingRef.bind(this, extensionOverride),
+                        startSavingRef.bind(undefined, extensionOverride),
                       ),
                   )
               : undefined,

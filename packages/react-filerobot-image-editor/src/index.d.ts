@@ -233,6 +233,7 @@ type triggerSaveModalFn = (onSaveFunction) => void;
 type triggerSavingFn = (onSaveFunction) => void;
 
 type saveOption = {
+  id: string;
   label: string;
   icon: string | HTMLElement | FunctionComponent;
   onClick: (triggerSaveModalFn, triggerSavingFn) => void;
@@ -336,6 +337,7 @@ export interface FilerobotImageEditorConfig {
   };
   observePluginContainerSize?: boolean;
   showCanvasOnly?: boolean;
+  autoSaveOption?: string;
   getCurrentImgDataFnRef?:
     | RefObject
     | {

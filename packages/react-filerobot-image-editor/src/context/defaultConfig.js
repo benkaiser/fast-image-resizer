@@ -128,6 +128,7 @@ export default {
   },
   observePluginContainerSize: false,
   showCanvasOnly: false,
+  autoDownload: undefined,
   getCurrentImgDataFnRef: undefined,
   onModify: undefined,
   useZoomPresetsMenu: true,

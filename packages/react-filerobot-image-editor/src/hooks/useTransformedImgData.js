@@ -71,6 +71,7 @@ const useTransformedImgData = () => {
     imageFileInfo = {},
     pixelRatio = false,
     keepLoadingSpinnerShown = false,
+    extensionOverride = null,
   ) => {
     const currentImgFileInfo = {
       size: resize,
@@ -109,12 +110,7 @@ const useTransformedImgData = () => {
       scaleY: preparedDesignLayerScale.y,
     });
 
-    const {
-      name,
-      extension,
-      quality = 92,
-      size = {},
-    } = {
+    const finalImageInfo = {
       ...((!currentImgFileInfo.name || !currentImgFileInfo.extension) &&
         getFileFullName(
           originalImage.name,
@@ -126,6 +122,11 @@ const useTransformedImgData = () => {
         )),
       ...currentImgFileInfo,
     };
+    const { name, quality = 92, size = {} } = finalImageInfo;
+    let { extension } = finalImageInfo;
+    if (extensionOverride) {
+      extension = extensionOverride;
+    }
 
     const isQualityAcceptable = ['jpeg', 'jpg', 'webp'].includes(extension);
 

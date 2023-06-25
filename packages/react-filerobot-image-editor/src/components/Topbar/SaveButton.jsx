@@ -57,12 +57,14 @@ const SaveButton = () => {
       defaultSavedImageQuality = DEFAULT_SAVE_QUALITY,
       useCloudimage,
       moreSaveOptions,
+      autoDownload,
     },
   } = state;
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [imageFileInfo, setImageFileInfo] = useState({
     quality: getDefaultSaveQuality(defaultSavedImageQuality),
   });
+  const startSavingRef = useRef();
   const transformImgFn = useTransformedImgData();
   const isQualityAcceptable = ['jpeg', 'jpg', 'webp'].includes(
     imageFileInfo.extension,
@@ -76,8 +78,13 @@ const SaveButton = () => {
     }
   };
 
-  const handleSave = () => {
-    const transformedData = transformImgFn(imageFileInfo, false, true);
+  const handleSave = (extensionOverride) => {
+    const transformedData = transformImgFn(
+      imageFileInfo,
+      false,
+      true,
+      extensionOverride,
+    );
     const onSaveFn = optionSaveFnRef.current || onSave;
     const savingResult = onSaveFn(
       transformedData.imageData,
@@ -99,10 +106,10 @@ const SaveButton = () => {
     }
   };
 
-  const startSaving = () => {
+  startSavingRef.current = (extensionOverride) => {
     dispatch({ type: SHOW_LOADER });
     setIsModalOpened(false);
-    setTimeout(handleSave, 3);
+    setTimeout(handleSave.bind(this, extensionOverride), 0);
   };
 
   const validateInfoThenSave = () => {
@@ -122,7 +129,7 @@ const SaveButton = () => {
       return;
     }
 
-    startSaving();
+    startSavingRef.current();
   };
 
   const changeFileName = (e) => {
@@ -227,6 +234,26 @@ const SaveButton = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!autoDownload) {
+      return;
+    }
+    // delay until next frame to give resize logic a chance to run
+    setTimeout(() => {
+      moreSaveOptions
+        .find((option) => option.id === autoDownload)
+        ?.onClick(
+          (saveCallback) =>
+            changeSaveFnAndTriggerAnother(saveCallback, triggerSaveHandler),
+          (saveCallback, extensionOverride) =>
+            changeSaveFnAndTriggerAnother(
+              saveCallback,
+              startSavingRef.current.bind(this, extensionOverride),
+            ),
+        );
+    }, 1000);
+  }, [originalImage, autoDownload]);
+
   const menuItems =
     Array.isArray(moreSaveOptions) && moreSaveOptions.length > 0
       ? moreSaveOptions.map((option, i) => ({
@@ -241,8 +268,11 @@ const SaveButton = () => {
                         saveCallback,
                         triggerSaveHandler,
                       ),
-                    (saveCallback) =>
-                      changeSaveFnAndTriggerAnother(saveCallback, startSaving),
+                    (saveCallback, extensionOverride) =>
+                      changeSaveFnAndTriggerAnother(
+                        saveCallback,
+                        startSavingRef.bind(this, extensionOverride),
+                      ),
                   )
               : undefined,
         }))

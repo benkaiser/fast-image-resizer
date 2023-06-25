@@ -2,6 +2,7 @@
 // eslint-disable-next-line import/no-named-as-default-member
 import DuplicateIcon from '@scaleflex/icons/duplicate';
 import SettingsIcon from '@scaleflex/icons/settings';
+import DownloadIcon from '@scaleflex/icons/download';
 import FilerobotImageEditor from '../packages/filerobot-image-editor/src';
 import config from './demo-config';
 
@@ -16,13 +17,14 @@ const sizeInput = document.getElementById('size');
 const customWidth = document.getElementById('customWidth');
 const customHeight = document.getElementById('customHeight');
 const customSizeWrapper = document.querySelector('.customSizeWrapper');
+const autoDownloadInput = document.getElementById('autoDownload');
 
 const { TABS } = FilerobotImageEditor;
 
 const DEFAULT_IMAGES_SRCS = [
-  'https://scaleflex.cloudimg.io/v7/demo/river.png?w=100',
-  'https://scaleflex.cloudimg.io/v7/demo/spencer-davis-unsplash.jpg?w=100',
-  'https://scaleflex.cloudimg.io/v7/demo/damian-markutt-unsplash.jpg?w=100',
+  'https://scaleflex.cloudimg.io/v7/demo/river.png',
+  'https://scaleflex.cloudimg.io/v7/demo/spencer-davis-unsplash.jpg',
+  'https://scaleflex.cloudimg.io/v7/demo/damian-markutt-unsplash.jpg',
 ];
 const DEFAULT_RESIZES = [
   { width: Infinity, height: Infinity, name: 'none', displayName: 'Original' },
@@ -103,10 +105,20 @@ function onSaveToClipboard(imageInfo) {
       }),
     ])
     .then(() => {
-      console.log('Copied to clipboard successfully!');
+      // eslint-disable-next-line no-undef
+      Toastify({
+        text: 'Image copied to clipboard',
+        duration: 5000,
+      }).showToast();
     })
     .catch((error) => {
-      console.log('Unable to write to clipboard. :-(', error);
+      // eslint-disable-next-line no-console
+      console.error(error);
+      // eslint-disable-next-line no-undef
+      Toastify({
+        text: 'Failed to copy image, see consle for error',
+        duration: 5000,
+      }).showToast();
     });
 }
 
@@ -120,16 +132,37 @@ filerobotImageEditor.render({
   moreSaveOptions: [
     {
       label: 'Save with Options',
+      id: 'dialog',
       icon: SettingsIcon,
       onClick: (openSaveModal) => openSaveModal(onSave),
     },
     {
-      label: 'Save To Clipboard',
+      label: 'Download (JPG)',
+      id: 'downloadJpg',
+      icon: DownloadIcon,
+      onClick: (_openSaveModal, saveDirectly) => saveDirectly(onSave, 'jpg'),
+    },
+    {
+      label: 'Download (PNG)',
+      id: 'downloadPng',
+      icon: DownloadIcon,
+      onClick: (_openSaveModal, saveDirectly) => saveDirectly(onSave, 'png'),
+    },
+    {
+      label: 'Download (WEBP)',
+      id: 'downloadWebp',
+      icon: DownloadIcon,
+      onClick: (_openSaveModal, saveDirectly) => saveDirectly(onSave, 'webp'),
+    },
+    {
+      label: 'Save To Clipboard (PNG)',
+      id: 'copyPng',
       icon: DuplicateIcon,
       onClick: (_openSaveModal, saveDirectly) =>
-        saveDirectly(onSaveToClipboard),
+        saveDirectly(onSaveToClipboard, 'png'),
     },
   ],
+  avoidChangesNotSavedAlertOnLeave: true,
   useCloudimage: false,
 });
 
@@ -246,6 +279,18 @@ document.onreadystatechange = () => {
     }
     sizeInput.appendChild(option);
     sizeInput.onchange = changeSize;
+  });
+};
+
+autoDownloadInput.onchange = (event) => {
+  if (event.target.value === 'false') {
+    filerobotImageEditor.render({
+      autoDownload: null,
+    });
+    return;
+  }
+  filerobotImageEditor.render({
+    autoDownload: event.target.value,
   });
 };
 

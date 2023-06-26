@@ -4,7 +4,8 @@ Need a fast way to resize images? Just want to use a browser? This tool let's yo
 
 [View Website Here](https://benkaiser.github.io/fast-image-resizer/)
 
-<a href='https://benkaiser.github.io/fast-image-resizer/'><img width="1044" alt="Screenshot of Fast Image Resize tool" src="https://github.com/benkaiser/fast-image-resizer/assets/608054/d96994b5-99b5-4739-9b19-969292d83ddb"></a>
+[![Screenshot of Fast Image Resize tool](https://github.com/benkaiser/fast-image-resizer/assets/608054/d36808c6-dcb9-4d7c-88fa-08417eacf51a)](https://benkaiser.github.io/fast-image-resizer/)
+
 
 
 This repo is forked from [Filerobot Image Editor](https://github.com/scaleflex/filerobot-image-editor).

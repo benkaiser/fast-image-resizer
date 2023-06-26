@@ -271,7 +271,7 @@ const SaveButton = () => {
                     (saveCallback, extensionOverride) =>
                       changeSaveFnAndTriggerAnother(
                         saveCallback,
-                        startSavingRef.bind(undefined, extensionOverride),
+                        startSavingRef.current.bind(undefined, extensionOverride),
                       ),
                   )
               : undefined,
